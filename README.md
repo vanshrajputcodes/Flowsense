@@ -1,312 +1,265 @@
-# FlowSense AI — Advanced System Architecture & Workflow
+<p align="center">
+  <img src="public/placeholder.svg" alt="FlowSense AI Logo" width="120" height="120"/>
+</p>
+
+<h1 align="center">FlowSense AI</h1>
+
+<p align="center">
+  <strong>Intelligent Crowd Management for India's Public Spaces</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react" alt="React"/>
+  <img src="https://img.shields.io/badge/TypeScript-5.6-3178C6?style=flat-square&logo=typescript" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=flat-square&logo=vite" alt="Vite"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss" alt="Tailwind"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-15-4169E1?style=flat-square&logo=postgresql" alt="PostgreSQL"/>
+</p>
+
+<p align="center">
+  <strong>Developer:</strong> Vansh Raj Singh &nbsp;|&nbsp; 
+  <strong>Version:</strong> 1.0.0 &nbsp;|&nbsp; 
+  <strong>Build:</strong> 2026.01.31
+</p>
 
 ---
 
-## End-to-End System Flow
+# Executive Summary
+
+FlowSense AI is a real-time intelligent crowd management system designed for high-density public environments such as temples, railway stations, stadiums, and large-scale events.
+
+It combines real-time monitoring, predictive analytics, and instant communication to ensure safety, optimize crowd flow, and improve visitor experience.
+
+---
+
+# Core Features and Working
+
+## 1. Real-Time Crowd Monitoring
+
+### Working
+- Sensors or manual inputs continuously update crowd counts
+- Data is stored in the database
+- Realtime subscriptions push updates instantly to all clients
 
 ```mermaid
 flowchart LR
-    A[Visitor App] --> B[Frontend Layer]
-    C[Admin Dashboard] --> B
+    A[Sensor Data / Input] --> B[Database]
+    B --> C[Realtime Engine]
+    C --> D[Visitor App]
+    C --> E[Admin Dashboard]
+```
 
-    B --> D[API Layer / Edge Functions]
+---
+
+## 2. Virtual Queue System
+
+### Working
+- Users generate digital tokens instead of standing in queues
+- System calculates estimated wait time dynamically
+- Admin controls token flow
+
+```mermaid
+flowchart TD
+    A[User Requests Token] --> B[Generate Token]
+    B --> C[Store in DB]
+    C --> D[Queue Position Updated]
+    D --> E[Admin Calls Token]
+    E --> F[User Notification]
+```
+
+---
+
+## 3. Interactive Crowd Map
+
+### Working
+- Each zone has real-time density data
+- Color-coded visualization based on occupancy
+- Updates instantly through realtime engine
+
+```mermaid
+flowchart TD
+    A[Zone Data] --> B[Process Density]
+    B --> C[Assign Color Code]
+    C --> D[Render Map UI]
+```
+
+---
+
+## 4. Emergency Alert System
+
+### Working
+- Admin creates alert with severity and zones
+- Stored in database
+- Broadcasted instantly to all users
+
+```mermaid
+flowchart TD
+    A[Admin Creates Alert] --> B[Store Alert]
+    B --> C[Realtime Broadcast]
+    C --> D[User Receives Alert]
+```
+
+---
+
+## 5. SOS Emergency System
+
+### Working
+- User triggers SOS
+- Unique token generated
+- Admin receives alert instantly
+
+```mermaid
+flowchart TD
+    A[User Clicks SOS] --> B[Generate Token]
+    B --> C[Send Request]
+    C --> D[Database Store]
+    D --> E[Admin Notification]
+    E --> F[Resolve Case]
+```
+
+---
+
+## 6. AI Prediction System
+
+### Working
+- Uses historical and real-time data
+- Generates future crowd predictions
+- Helps admins take proactive actions
+
+```mermaid
+flowchart TD
+    A[Historical Data] --> B[AI Model]
+    B --> C[Generate Predictions]
+    C --> D[Store Results]
+    D --> E[Admin Dashboard]
+```
+
+---
+
+## 7. Facilities Locator
+
+### Working
+- Facilities mapped to zones
+- Availability tracked in real-time
+- Users can filter and locate nearby services
+
+```mermaid
+flowchart TD
+    A[Facility Data] --> B[Filter by Type]
+    B --> C[Match User Location]
+    C --> D[Display Results]
+```
+
+---
+
+# Complete System Workflow
+
+```mermaid
+flowchart LR
+    A[Visitor] --> B[Frontend]
+    B --> C[API Layer]
+    C --> D[Database]
 
     D --> E[Realtime Engine]
-    D --> F[Prediction Engine]
-    D --> G[Alert System]
-    D --> H[SOS Handler]
-
-    E --> I[Database]
-    F --> I
-    G --> I
-    H --> I
-
-    I --> E
     E --> B
+
+    C --> F[Prediction Engine]
+    C --> G[Alert System]
+    C --> H[SOS System]
 ```
 
 ---
 
-## Visitor Journey Flow
+# Admin Workflow
 
 ```mermaid
 flowchart TD
-    A[Open App] --> B[Load Dashboard]
-    B --> C[Fetch Zone Data]
-    C --> D[Display Status Grid]
-
-    D --> E[User Action]
-
-    E -->|Queue| F[Join Virtual Queue]
-    E -->|Map| G[View Live Map]
-    E -->|Facilities| H[Find Services]
-    E -->|Alerts| I[Read Alerts]
-    E -->|SOS| J[Trigger Emergency]
-
-    F --> K[Token Generated]
-    K --> L[Realtime Updates]
-
-    J --> M[Send SOS Request]
-    M --> N[Admin Notified]
+    A[Login] --> B[Dashboard]
+    B --> C[Monitor Crowd]
+    B --> D[Manage Queue]
+    B --> E[Send Alerts]
+    B --> F[Handle SOS]
 ```
 
 ---
 
-## Admin Workflow Flow
+# Visitor Workflow
 
 ```mermaid
 flowchart TD
-    A[Admin Login] --> B[Dashboard]
-    B --> C[Monitor Zones]
-    B --> D[Manage Queues]
-    B --> E[View SOS Alerts]
-    B --> F[Broadcast Alerts]
+    A[Open App] --> B[View Dashboard]
+    B --> C[Check Crowd Status]
 
-    D --> G[Create Queue]
-    D --> H[Call Next Token]
-
-    F --> I[Select Zones]
-    I --> J[Send Alert]
-
-    E --> K[Resolve SOS]
+    C --> D[Join Queue]
+    C --> E[View Map]
+    C --> F[Check Alerts]
+    C --> G[Use SOS]
 ```
 
 ---
 
-## Virtual Queue System Flow
-
-```mermaid
-flowchart TD
-    A[User Requests Token] --> B[Check Queue Status]
-    B -->|Active| C[Generate Token Number]
-    C --> D[Store in Database]
-    D --> E[Return Token to User]
-
-    E --> F[Wait in Queue]
-    F --> G[Admin Calls Token]
-    G --> H[User Notified]
-    H --> I[Service Completed]
-```
-
----
-
-## SOS Emergency Flow
-
-```mermaid
-flowchart TD
-    A[User Presses SOS] --> B[Enter Details]
-    B --> C[Generate SOS Token]
-    C --> D[Send to Backend]
-
-    D --> E[Store Request]
-    E --> F[Trigger Realtime Event]
-
-    F --> G[Admin Dashboard Alert]
-    G --> H[Audio Alarm Triggered]
-
-    H --> I[Admin Responds]
-    I --> J[Mark Resolved]
-```
-
----
-
-## Alert Broadcasting Flow
-
-```mermaid
-flowchart TD
-    A[Admin Creates Alert] --> B[Select Severity]
-    B --> C[Select Target Zones]
-    C --> D[Send Alert]
-
-    D --> E[Store in Database]
-    E --> F[Realtime Broadcast]
-
-    F --> G[Visitor Devices Receive]
-    G --> H[Display Alert Banner]
-```
-
----
-
-## Prediction Engine Flow
-
-```mermaid
-flowchart TD
-    A[Historical Data] --> B[Data Processing]
-    B --> C[Pattern Analysis]
-    C --> D[AI Prediction Model]
-
-    D --> E[Generate Hourly Predictions]
-    E --> F[Store Predictions]
-
-    F --> G[Admin Dashboard]
-    G --> H[Show Insights & Risk Level]
-```
-
----
-
-## Realtime System Flow
+# Realtime Data Flow
 
 ```mermaid
 flowchart LR
     A[Database Change] --> B[Realtime Engine]
-    B --> C[WebSocket Broadcast]
-
-    C --> D[Visitor App]
-    C --> E[Admin Dashboard]
-
-    D --> F[UI Update]
-    E --> F
+    B --> C[WebSocket]
+    C --> D[Frontend Update]
 ```
 
 ---
 
-## Database Interaction Flow
+# Security Flow
 
 ```mermaid
 flowchart TD
-    A[User Action] --> B[API Request]
-    B --> C[Edge Function]
-
-    C --> D[Validate Request]
-    D --> E[Apply Business Logic]
-    E --> F[Write to Database]
-
-    F --> G[Trigger Realtime]
-    G --> H[Update UI]
+    A[Request] --> B[JWT Authentication]
+    B --> C[Role Check]
+    C --> D[RLS Policy]
+    D --> E[Allow or Deny]
 ```
 
 ---
 
-## Security Flow
-
-```mermaid
-flowchart TD
-    A[Request] --> B[Authentication Check]
-    B --> C[JWT Validation]
-
-    C --> D[Role Check]
-    D --> E[RLS Policy Check]
-
-    E --> F[Allow or Deny]
-
-    F -->|Allow| G[Process Request]
-    F -->|Deny| H[Reject Request]
-```
-
----
-
-## System Architecture (Detailed)
+# Architecture Overview
 
 ```mermaid
 flowchart LR
-    subgraph Client Layer
-        A[Visitor PWA]
-        B[Admin Dashboard]
+    subgraph Client
+        A[Visitor App]
+        B[Admin Panel]
     end
 
-    subgraph API Layer
+    subgraph Backend
         C[Edge Functions]
+        D[Realtime Engine]
     end
 
-    subgraph Data Layer
-        D[PostgreSQL]
-        E[Realtime Engine]
-        F[Storage]
+    subgraph Data
+        E[PostgreSQL]
     end
 
     A --> C
     B --> C
-    C --> D
     C --> E
-    C --> F
-    E --> A
-    E --> B
+    E --> D
+    D --> A
+    D --> B
 ```
 
 ---
 
-## Queue Token Lifecycle
+# Key Advantages
 
-```mermaid
-stateDiagram-v2
-    [*] --> waiting
-    waiting --> called
-    called --> served
-    waiting --> cancelled
-    called --> expired
-```
+- Real-time monitoring and updates
+- Digital queue system eliminates physical crowding
+- AI-based predictions for proactive management
+- Instant emergency communication
+- Scalable and modular architecture
+- Secure access control with RLS and JWT
 
 ---
 
-## Alert Lifecycle
+# Conclusion
 
-```mermaid
-stateDiagram-v2
-    [*] --> created
-    created --> active
-    active --> resolved
-    active --> expired
-```
-
----
-
-## SOS Lifecycle
-
-```mermaid
-stateDiagram-v2
-    [*] --> active
-    active --> responded
-    responded --> resolved
-```
-
----
-
-## Data Flow Summary
-
-```mermaid
-sequenceDiagram
-    participant Visitor
-    participant Frontend
-    participant Backend
-    participant Database
-    participant Admin
-
-    Visitor->>Frontend: Request Action
-    Frontend->>Backend: API Call
-    Backend->>Database: Store Data
-    Database->>Backend: Confirm
-    Backend->>Frontend: Response
-
-    Backend->>Admin: Realtime Update
-    Admin->>Backend: Action
-```
-
----
-
-## System Advantages
-
-- Fully real-time architecture
-- Event-driven system design
-- Modular and scalable backend
-- Strong security with RLS and JWT
-- Low-latency communication via WebSockets
-- AI-driven predictive analytics
-- Fault-tolerant microservice-style structure
-
----
-
-## High-Level Architecture Summary
-
-```mermaid
-flowchart TD
-    A[Input Layer] --> B[Processing Layer]
-    B --> C[Storage Layer]
-    C --> D[Realtime Layer]
-    D --> E[Presentation Layer]
-```
-
----
-
-## Conclusion
-
-FlowSense AI is designed as a highly scalable, real-time, event-driven system capable of handling large-scale crowd environments with precision, safety, and efficiency. The integration of predictive analytics, realtime communication, and modular architecture ensures reliability and future extensibility.
+FlowSense AI is a complete intelligent system designed to solve real-world crowd management challenges using modern technologies. Its real-time capabilities, predictive intelligence, and modular design make it suitable for large-scale deployment across public infrastructures.

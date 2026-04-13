@@ -1,0 +1,16 @@
+project_id = "obkphwjmqxqhzdcdjnfk"
+[functions.send-sos]
+verify_jwt = false
+
+
+[functions.generate-predictions]
+verify_jwt = false
+
+[functions.broadcast-alert]
+verify_jwt = false
+
+[functions.resolve-alert]
+verify_jwt = false
+
+[functions.translate-announcement]
+verify_jwt = false

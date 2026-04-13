@@ -629,8 +629,8 @@ FlowSense AI successfully delivers an **end-to-end intelligent crowd management 
 ---
 
 **Prepared by:** Vansh Raj Singh  
-**Program:** MCA, Integral University, Lucknow  
-**Date:** February 2026  
+**Program:** BCA, Integral University, Lucknow  
+**Date:** March 2026  
 **Version:** 1.0.0
 
 ---
